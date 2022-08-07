@@ -9,15 +9,17 @@ URL_PROMPT = \
 
 if __name__ == '__main__':
     valid_url = False
+    character_url = "https://na.finalfantasyxiv.com/lodestone/character/39463724"
 
-    while not valid_url:
-        character_url = input("Please input the target character's lodestone url: ")
-        valid_url = re.match(LODESTONE_URL_REGEX, character_url)
+    #while not valid_url:
+    #    character_url = input("Please input the target character's lodestone url: ")
+    #    valid_url = re.match(LODESTONE_URL_REGEX, character_url)
 
-        if not valid_url:
-            print(URL_PROMPT)
+    #    if not valid_url:
+    #        print(URL_PROMPT)
 
     print("Finding character...")
+    print(character)
 
     try:
         character = character.get_character_data(character_url)
@@ -27,4 +29,4 @@ if __name__ == '__main__':
     card = Card(character)
     print(card)
 
-    print(character)
+    card.create_card_image()

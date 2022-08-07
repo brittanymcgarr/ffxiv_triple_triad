@@ -6,18 +6,21 @@
 ## britmcgarr@gmail.com                                                       ##
 ################################################################################
 
+import datetime
+from PIL import Image, ImageDraw, ImageFont
 import random
 import re
 import requests
-import datetime
+from io import BytesIO
+
 from character import Character
 
 
-RANGE_5_STAR = (5,10)
-RANGE_4_STAR = (1,9)
-RANGE_3_STAR = (1,7)
-RANGE_2_STAR = (1,5)
-RANGE_1_STAR = (1,4)
+RANGE_5_STAR = (5,11)
+RANGE_4_STAR = (1,10)
+RANGE_3_STAR = (1,8)
+RANGE_2_STAR = (1,6)
+RANGE_1_STAR = (1,5)
 
 VALUE_5_STAR = (30, 99)
 VALUE_4_STAR = (25,29)
@@ -68,7 +71,7 @@ class Card:
             self.star_rating = 5
             random_ranges = RANGE_5_STAR
             star_value = VALUE_5_STAR
-        elif total_jobs > 20 and total_capped / total_jobs > 0.90:
+        elif total_jobs > 20 and total_capped / total_jobs > 0.5:
             self.star_rating = 4
             random_ranges = RANGE_4_STAR
             star_value = VALUE_4_STAR
@@ -100,7 +103,17 @@ class Card:
                 self.values = [north, south, east, west]
 
     def create_card_image(self):
-        pass
+        response = requests.get(self.character.image)
+        image = Image.open(BytesIO(response.content))
+
+        image_draw = ImageDraw.Draw(image)
+        font = ImageFont.truetype('fonts/arial.ttf', 70)
+        image_draw.text((300, 20), str(self.values[0]), font=font, fill=(255, 255, 255))
+        image_draw.text((45, 420), str(self.values[1]), font=font, fill=(255, 255, 255))
+        image_draw.text((550, 420), str(self.values[2]), font=font, fill=(255, 255, 255))
+        image_draw.text((300, 720), str(self.values[3]), font=font, fill=(255, 255, 255))
+
+        image.show()
 
     def host_card(self):
         pass
