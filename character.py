@@ -60,7 +60,7 @@ def get_character_data(url):
 
         if job_level != "-":
             job = job_classes[index].contents[0]
-            levelled_jobs[job] = job_level
+            levelled_jobs[job] = int(job_level)
 
     # Get the character portrait link
     if not image_text:

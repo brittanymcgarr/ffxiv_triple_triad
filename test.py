@@ -1,5 +1,6 @@
 import re
 import character
+from card import Card
 
 
 LODESTONE_URL_REGEX = r'^https:\/\/na\.finalfantasyxiv\.com\/lodestone\/character\/[0-9]+'
@@ -22,5 +23,8 @@ if __name__ == '__main__':
         character = character.get_character_data(character_url)
     except ValueError as err:
         print("Could not find character data.")
+
+    card = Card(character)
+    print(card)
 
     print(character)
