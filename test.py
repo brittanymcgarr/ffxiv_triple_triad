@@ -31,3 +31,5 @@ if __name__ == '__main__':
     print(card)
 
     card.create_card_image()
+    card.show_image_locally()
+    card.save_card_image()

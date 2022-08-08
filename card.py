@@ -13,8 +13,6 @@ import re
 import requests
 from io import BytesIO
 
-from character import Character
-
 
 RANGE_5_STAR = (5,10)
 RANGE_4_STAR = (1,9)
@@ -38,6 +36,7 @@ class Card:
         self.values = []
 
         self.generate_edge_values()
+        self.image_data = self.create_card_image()
 
     def __repr__(self):
         card_string = \
@@ -48,6 +47,7 @@ class Card:
         time = datetime.datetime.now()
         id_string = self.character.name + "_" + time.strftime("%Y%m%d%H%M%S")
         id_string = re.sub(r'(\s\'-)*', '', id_string)
+        id_string = id_string.replace(' ', '_')
 
         return id_string
 
@@ -113,7 +113,13 @@ class Card:
         image_draw.text((550, 420), str(self.values[2]), font=font, fill=(255, 255, 255))
         image_draw.text((300, 720), str(self.values[3]), font=font, fill=(255, 255, 255))
 
-        image.show()
+        return image
+
+    def show_image_locally(self):
+        self.image_data.show()
+
+    def save_card_image(self):
+        self.image_data.save("cards/" + self.id + ".png")
 
     def host_card(self):
         pass
