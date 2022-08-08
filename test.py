@@ -19,12 +19,13 @@ if __name__ == '__main__':
             print(URL_PROMPT)
 
     print("Finding character...")
-    print(character)
 
     try:
         character = character.get_character_data(character_url)
     except ValueError as err:
         print("Could not find character data.")
+
+    print(character)
 
     card = Card(character)
     print(card)

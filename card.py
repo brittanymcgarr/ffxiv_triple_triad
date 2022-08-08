@@ -16,11 +16,11 @@ from io import BytesIO
 from character import Character
 
 
-RANGE_5_STAR = (5,11)
-RANGE_4_STAR = (1,10)
-RANGE_3_STAR = (1,8)
-RANGE_2_STAR = (1,6)
-RANGE_1_STAR = (1,5)
+RANGE_5_STAR = (5,10)
+RANGE_4_STAR = (1,9)
+RANGE_3_STAR = (1,7)
+RANGE_2_STAR = (1,5)
+RANGE_1_STAR = (1,4)
 
 VALUE_5_STAR = (30, 99)
 VALUE_4_STAR = (25,29)
@@ -60,14 +60,14 @@ class Card:
 
         for job, level in self.character.jobs.items():
             if level >= 90:
-                total_capped += 1
+                total_capped = total_capped + 1
 
         # <14 => 1 star
         # 15-19 => 2 star
         # 20-24 => 3 star
         # 25-29 => 4 star
         # 30+ => 5 star
-        if total_jobs > 30 and total_capped == total_jobs:
+        if total_jobs > 29 and total_capped > 29:
             self.star_rating = 5
             random_ranges = RANGE_5_STAR
             star_value = VALUE_5_STAR
